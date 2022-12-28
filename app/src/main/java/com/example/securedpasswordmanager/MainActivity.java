@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,31 +27,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        EditText username; EditText password; Button registerBtn;
-        username = (EditText)findViewById(R.id.editUsername);
-        password = (EditText)findViewById(R.id.editPassword);
-        registerBtn = (Button)findViewById(R.id.registerBtn);
-        KeyHelper keyHelper = KeyHelper.getInstance(getApplicationContext());
+        Button registerBtn = (Button)findViewById(R.id.register);
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    String encryptedPassword = keyHelper.encrypt(getApplicationContext(),password.getText().toString());
-                    SharedPreferences pref = getApplicationContext().getSharedPreferences( "SAVED_TO_SHARED", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor edit = pref.edit();
-                    edit.putString(username.getText().toString(), encryptedPassword);
-                    edit.apply();
-                    Log.e("SECURED_PASSWD","Parola criptata:"+encryptedPassword);
-                    String sharedPassw = pref.getString(username.getText().toString(), null);
-                    Log.e("SECURED_PASSWD","Parola din share:"+encryptedPassword);
+                final Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
 
-                    String decryptedPassw = keyHelper.decrypt(getApplicationContext(),sharedPassw);
-                    Log.e("SECURED_PASSWD","Parola decriptata:"+decryptedPassw);
-
-                } catch (NoSuchAlgorithmException | NoSuchPaddingException | NoSuchProviderException | IllegalBlockSizeException | BadPaddingException | UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-
+        final Button loginBtn = findViewById(R.id.login);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                final Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
     }

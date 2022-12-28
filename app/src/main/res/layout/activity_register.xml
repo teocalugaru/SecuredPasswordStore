@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient">
+
+
+    <EditText
+        android:id="@+id/reg_user"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/reg_passw"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:background="#11000000"
+        android:drawableLeft="@drawable/ic_action_user"
+        android:ems="10"
+        android:hint="Username"
+        android:textColorHint="#fff"
+        android:textColor="#fff"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/reg_passw"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:background="#11000000"
+        android:layout_above="@+id/reg_passw2"
+        android:drawableLeft="@drawable/ic_action_pass"
+        android:ems="10"
+        android:hint="Password"
+        android:textColorHint="#fff"
+        android:textColor="#fff"
+        android:inputType="textPassword"
+        android:layout_marginBottom="25dp"
+        android:layout_alignLeft="@+id/reg_user"
+        android:layout_alignStart="@+id/reg_user" />
+
+    <EditText
+        android:id="@+id/reg_passw2"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/registerBTN"
+        android:layout_alignStart="@+id/reg_passw"
+        android:layout_alignLeft="@+id/reg_passw"
+        android:layout_marginBottom="67dp"
+        android:background="#11000000"
+        android:drawableLeft="@drawable/ic_action_pass"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:textColor="#fff"
+        android:textColorHint="#fff" />
+
+    <Button
+        android:id="@+id/registerBTN"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="255dp"
+        android:background="@drawable/custom_button"
+        android:backgroundTint="#2498f3"
+        android:text="Register"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+</RelativeLayout>
