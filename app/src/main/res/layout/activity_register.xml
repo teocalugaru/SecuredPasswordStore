@@ -59,14 +59,29 @@
         android:id="@+id/registerBTN"
         android:layout_width="300dp"
         android:layout_height="50dp"
+        android:layout_above="@+id/genRandPasswBtn"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="52dp"
-        android:layout_marginBottom="255dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/custom_button"
         android:backgroundTint="#2498f3"
         android:text="Register"
         android:textAllCaps="false"
         android:textColor="#fff"
         android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/genRandPasswBtn"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="81dp"
+        android:background="@drawable/custom_button"
+        android:backgroundTint="#2498f3"
+        android:text="Generate Random Password"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="14sp" />
 </RelativeLayout>

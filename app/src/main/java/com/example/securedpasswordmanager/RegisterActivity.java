@@ -1,8 +1,11 @@
 package com.example.securedpasswordmanager;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.accessibilityservice.GestureDescription;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -76,5 +79,30 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Button genPasswBtn = (Button)findViewById(R.id.genRandPasswBtn);
+        genPasswBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PasswordGenerator pw = new PasswordGenerator();
+                String generatedPassw = pw.generatePassword();
+                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                builder.setMessage("Your random generated password is : "+generatedPassw)
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                EditText password=((EditText) findViewById(R.id.reg_passw));
+                                EditText confirm=((EditText) findViewById(R.id.reg_passw2));
+                                password.setText(generatedPassw);
+                                confirm.setText(generatedPassw);
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
+
     }
+
 }

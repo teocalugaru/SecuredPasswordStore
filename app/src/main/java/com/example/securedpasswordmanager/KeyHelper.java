@@ -140,9 +140,9 @@ public class KeyHelper{
             byte[] key = new byte[16];
             SecureRandom secureRandom = new SecureRandom();
             secureRandom.nextBytes(key);
-            Log.e("SECURED_PASSWD","AESkey:"+key.toString());
+            //Log.e("SECURED_PASSWD","AESkey:"+key.toString());
             byte[] encryptedKey = rsaEncrypt(key);
-            Log.e("SECURED_PASSWD","encryptedAESkey:"+encryptedKey.toString());
+            //Log.e("SECURED_PASSWD","encryptedAESkey:"+encryptedKey.toString());
             encryptedKeyB64 = Base64.encodeToString(encryptedKey, Base64.DEFAULT);
             SharedPreferences.Editor edit = pref.edit();
 
@@ -158,7 +158,7 @@ public class KeyHelper{
 
         byte[] encryptedKey = Base64.decode(enryptedKeyB64, Base64.DEFAULT);
         byte[] key = rsaDecrypt(encryptedKey);
-        Log.e("SECURED_PASSWD","DecryptedAESkey:"+key.toString());
+        //Log.e("SECURED_PASSWD","DecryptedAESkey:"+key.toString());
         return new SecretKeySpec(key, "AES");
     }
 
@@ -167,10 +167,10 @@ public class KeyHelper{
         SharedPreferences pref = context.getSharedPreferences(SHARED_PREFENCE_NAME, Context.MODE_PRIVATE);
         String publicIV = pref.getString(PUBLIC_IV, null);
         c = Cipher.getInstance(AES_MODE_M);
-        Log.e("SECURED_PASSWD","Criptare:"+input);
+       // Log.e("SECURED_PASSWD","Criptare:"+input);
         try{
             c.init(Cipher.ENCRYPT_MODE, getSecretKey(context),new GCMParameterSpec(128,Base64.decode(publicIV, Base64.DEFAULT)));
-            Log.e("SECURED_PASSWD","Cipher:"+c.toString());
+            //Log.e("SECURED_PASSWD","Cipher:"+c.toString());
         } catch (Exception e){
             e.printStackTrace();
         }
