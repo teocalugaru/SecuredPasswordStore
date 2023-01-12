@@ -43,13 +43,20 @@ public class AccountsActivity extends AppCompatActivity {
     Vector<String> mUsername = new Vector<>();
     Vector<String> mPassword = new Vector<>();
     Vector<String> mComplexity = new Vector<>();
-    private void getUsers() throws ParseException {
+    String username;
+    private void getUsers(String username) throws ParseException, NoSuchPaddingException, IllegalBlockSizeException, UnsupportedEncodingException, NoSuchAlgorithmException, BadPaddingException, NoSuchProviderException {
         SharedPreferences pref = getApplicationContext().getSharedPreferences( "SAVED_TO_SHARED", Context.MODE_PRIVATE);
         Map<String,String> allUsers= (Map<String, String>) pref.getAll();
+        KeyHelper keyHelper = KeyHelper.getInstance(getApplicationContext());
         for(Map.Entry<String,String> entry:allUsers.entrySet()){
             if(!entry.getKey().equals("ENCRYPTED_KEY") && !entry.getKey().equals("PUBLIC_IV")) {
                 mUsername.add(entry.getKey());
-                mPassword.add(entry.getValue());
+                if(entry.getKey().equals(username)){
+                    mPassword.add(keyHelper.decrypt(getApplicationContext(), entry.getValue()));
+                }
+                else {
+                    mPassword.add(entry.getValue());
+                }
             }
         }
     }
@@ -77,11 +84,20 @@ public class AccountsActivity extends AppCompatActivity {
             TextView myTitle = row.findViewById(R.id.textView1);
             TextView myDescription = row.findViewById(R.id.textView2);
             TextView myComplexity = row.findViewById(R.id.textView3);
-            myTitle.setText(rUsernames.get(position));
-            myDescription.setText(rPasswords.get(position));
+
             KeyHelper keyHelper = KeyHelper.getInstance(getApplicationContext());
             try {
-                String decryptedPassw = keyHelper.decrypt(getApplicationContext(), rPasswords.get(position));
+                String decryptedPassw;
+                if(rUsernames.get(position).equals(username)) {
+                    decryptedPassw = rPasswords.get(position);
+                    myTitle.setText(rUsernames.get(position)+" ---LOGGED USER--- ");
+                }
+                else {
+                    decryptedPassw = keyHelper.decrypt(getApplicationContext(), rPasswords.get(position));
+                    myTitle.setText(rUsernames.get(position));
+                }
+                myDescription.setText(rPasswords.get(position));
+
                 switch(PasswordChecker.checkComplexity(decryptedPassw)){
                     case 2:
                         myComplexity.setText("Strong complexity!");
@@ -114,8 +130,9 @@ public class AccountsActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), newString,
                 Toast.LENGTH_LONG).show();
         try {
-            getUsers();
-        } catch (ParseException e) {
+            getUsers(extras.getString("username"));
+            username = extras.getString("username");
+        } catch (ParseException | NoSuchPaddingException | IllegalBlockSizeException | UnsupportedEncodingException | NoSuchAlgorithmException | BadPaddingException | NoSuchProviderException e) {
             e.printStackTrace();
         }
         listView = findViewById(R.id.listView);
