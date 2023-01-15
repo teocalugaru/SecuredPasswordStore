@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private void loginUser(String username, String password){
         try {
             //Verificam mai intai amprenta si apoi credentialele introduse de utilizator - autentificare multifactor
+            Log.d("debug","Verify the fingerprint and after that the username and password--multifactor authentication!");
             biometricPrompt = new BiometricPrompt(LoginActivity.this, executor, new BiometricPrompt.AuthenticationCallback() {
                 @Override
                 public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
@@ -54,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         catch (NoSuchAlgorithmException | NoSuchPaddingException | NoSuchProviderException | IllegalBlockSizeException | BadPaddingException | UnsupportedEncodingException e) {
                             e.printStackTrace();
+                            Log.e("error",e.getMessage());
                         }
 
                         if(!decryptedPassw.equals(password)){
@@ -71,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                     else{
                         Toast.makeText(getApplicationContext(), "Incorrect username or password",
                                 Toast.LENGTH_LONG).show();
+                        Log.d("debug","Login--Incorrect username or password!");
                     }
                 }
 
@@ -88,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         catch (Exception e) {
             e.printStackTrace();
+            Log.e("error",e.getMessage());
         }
 
     }
@@ -134,6 +139,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Button loginBtn = (Button)findViewById(R.id.sendBTN);
+        Log.i("access","User is on login activity!");
 
         //For digital fringerprint
         BiometricManager biometricManager = BiometricManager.from(LoginActivity.this);

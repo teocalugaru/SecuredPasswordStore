@@ -60,6 +60,7 @@ public class KeyHelper{
                 keyHelper = new KeyHelper(ctx);
             } catch (NoSuchPaddingException | NoSuchProviderException | NoSuchAlgorithmException | InvalidAlgorithmParameterException | KeyStoreException | CertificateException | IOException e){
                 e.printStackTrace();
+                Log.e("error",e.getMessage());
             }
         }
         return keyHelper;
@@ -72,6 +73,7 @@ public class KeyHelper{
             this.generateAESKey(ctx);
         } catch(Exception e){
             e.printStackTrace();
+            Log.e("error",e.getMessage());
         }
     }
 
@@ -167,12 +169,13 @@ public class KeyHelper{
         SharedPreferences pref = context.getSharedPreferences(SHARED_PREFENCE_NAME, Context.MODE_PRIVATE);
         String publicIV = pref.getString(PUBLIC_IV, null);
         c = Cipher.getInstance(AES_MODE_M);
-       // Log.e("SECURED_PASSWD","Criptare:"+input);
+        Log.d("debug","Criptare:"+input);
         try{
             c.init(Cipher.ENCRYPT_MODE, getSecretKey(context),new GCMParameterSpec(128,Base64.decode(publicIV, Base64.DEFAULT)));
-            //Log.e("SECURED_PASSWD","Cipher:"+c.toString());
+            Log.d("debug","Cipher:"+c.toString());
         } catch (Exception e){
             e.printStackTrace();
+            Log.e("error",e.getMessage());
         }
         byte[] encodedBytes = c.doFinal(input.getBytes("UTF-8"));
         return Base64.encodeToString(encodedBytes, Base64.DEFAULT);
@@ -187,6 +190,7 @@ public class KeyHelper{
             c.init(Cipher.DECRYPT_MODE, getSecretKey(context), new GCMParameterSpec(128,Base64.decode(publicIV, Base64.DEFAULT)));
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e("error",e.getMessage());
         }
 
         byte[] decodedValue = Base64.decode(encrypted.getBytes("UTF-8"), Base64.DEFAULT);

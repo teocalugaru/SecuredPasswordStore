@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,6 +116,7 @@ public class AccountsActivity extends AppCompatActivity {
 
             } catch (NoSuchAlgorithmException | NoSuchPaddingException | NoSuchProviderException | BadPaddingException | UnsupportedEncodingException | IllegalBlockSizeException e) {
                 e.printStackTrace();
+                Log.e("error",e.getMessage());
             }
             return row;
         }
@@ -124,6 +126,7 @@ public class AccountsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("access","User is on accounts activity!");
         setContentView(R.layout.activity_accounts);
         Bundle extras = getIntent().getExtras();
         String newString= extras.getString("LOGGED_IN");
@@ -134,6 +137,7 @@ public class AccountsActivity extends AppCompatActivity {
             username = extras.getString("username");
         } catch (ParseException | NoSuchPaddingException | IllegalBlockSizeException | UnsupportedEncodingException | NoSuchAlgorithmException | BadPaddingException | NoSuchProviderException e) {
             e.printStackTrace();
+            Log.e("error",e.getMessage());
         }
         listView = findViewById(R.id.listView);
         MyAdapter adapter = new MyAdapter(this, mUsername, mPassword,mComplexity);
