@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,6 +65,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                     Transport.send(mimeMessage);
                 } catch (MessagingException e) {
                     e.printStackTrace();
+                    Log.e("error",e.getMessage());
                 }
             }
         });
@@ -76,6 +78,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("access","User is on forgetPassword activity!");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
 
@@ -96,6 +99,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                         sendEmail(email,messageBody);
                     } catch (MessagingException e) {
                         e.printStackTrace();
+                        Log.e("error",e.getMessage());
                     }
                     Toast.makeText(getApplicationContext(), "The password was sent on your e-mail account!", Toast.LENGTH_LONG).show();
                     final Intent intent = new Intent(ForgetPasswordActivity.this, MainActivity.class);

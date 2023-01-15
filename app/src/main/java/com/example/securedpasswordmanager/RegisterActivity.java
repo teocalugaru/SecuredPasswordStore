@@ -37,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
             {
                 //Utilizator existent
                 resultMessage="The username already exists...";
+                Log.d("debug","Generate random password for user!");
                 Toast.makeText(getApplicationContext(), resultMessage,
                         Toast.LENGTH_LONG).show();
             }
@@ -45,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
                 edit.putString(username, encryptedPassword);
                 edit.apply();
                 resultMessage="You are successfully registered in face app system";
+                Log.d("debug","User successfully registered!");
                 final Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                 intent.putExtra("REGISTERED", resultMessage);
                 startActivity(intent);
@@ -54,12 +56,14 @@ public class RegisterActivity extends AppCompatActivity {
 
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | NoSuchProviderException | IllegalBlockSizeException | BadPaddingException | UnsupportedEncodingException e) {
             e.printStackTrace();
+            Log.e("error",e.getMessage());
         }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("access","User is on register activity!");
         setContentView(R.layout.activity_register);
         Button registerBtn = (Button)findViewById(R.id.registerBTN);
         registerBtn.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
                     String error_message="The passwords do not match";
                     Toast.makeText(getApplicationContext(), error_message,
                             Toast.LENGTH_LONG).show();
+                    Log.d("debug","Register user: the passwords do not match");
                 }
                 else
                 {
@@ -84,6 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
         genPasswBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("access","Generate random password for user!");
                 PasswordGenerator pw = new PasswordGenerator();
                 String generatedPassw = pw.generatePassword();
                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
@@ -95,6 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 EditText confirm=((EditText) findViewById(R.id.reg_passw2));
                                 password.setText(generatedPassw);
                                 confirm.setText(generatedPassw);
+                                Log.d("debug","SUCCESS: Generate random password for user!");
                             }
                         });
                 AlertDialog alert = builder.create();

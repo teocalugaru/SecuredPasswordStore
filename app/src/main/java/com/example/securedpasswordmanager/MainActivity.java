@@ -26,11 +26,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("access","User is on main activity!");
         setContentView(R.layout.activity_main);
         Button registerBtn = (Button)findViewById(R.id.register);
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("access","User pushed register button!");
                 final Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         final Button loginBtn = findViewById(R.id.login);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Log.i("access","User pushed login button!");
                 final Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
