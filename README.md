@@ -22,3 +22,8 @@ Dupa logarea in sistem, se va afisa o lista cu toate conturile utilizatorilor ca
 S-a adaugat functionalitatea de autentificare multi-factor (cu amprenta si parola), astfel ca in momentul apasarii butonului de LOGIN va trebui ca utilizatorul sa foloseasca amprenta sau faceID-ul telefonului, dupa care, in cazul in care acestea sunt corecte, vor fi verificate si credentialele (username si parola) - multifactor authentication -- something you are (fingerprint) and something you know (username+password).
 ### Posibilitatea recuperarii contului
 S-a adaugat posibilitatea de recuperare a contului: in pagina de login avem butonul "Forgot password" prin a carui selectie utilizatorul va putea sa introduca adresa de e-mail unde va primi parola pentru contul sau ( trebuie sa cunoasca numele de utilizator si sa foloseasca amprenta pentru ca mail-ul sa fie trimis - un factor de autentificare este pierdut, are nevoie de celalalt pentru a-l recupera)...Functionalitatea va fi completa doar in momentul in care aplicatia va avea permisiunea server-ului de mail de a trimite un e-mail in background (momentan gmail si yahoo nu permit third parties access pentru alte aplicatii - Solutie probabila: crearea unui server de mail local sau folosirea altui tip de e-mail).
+### Sistem de auditare
+S-au adaugat si log-uri sugestive pe mai multe niveluri:<br>
+-nivelul access (pentru a vedea ce activitati acceseaza utilizatorul)<br>
+-nivelul debug (pentru majoritatea actiunilor care se realizeaza in aplicatie)<br>
+-nivelul error (pentru exceptiile si erorile care apar in timpul utilizarii aplicatiei).
